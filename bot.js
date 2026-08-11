@@ -4,8 +4,8 @@ const path = require('path');
 const fs = require('fs');
 
 // --- CONFIGURATION ---
-const BOT_TOKEN = '8862054502:AAGI7QvaIt1Die4jLM0XPhkye4pYM2eBeds';
-const MY_USER_ID = 5117623980;
+const BOT_TOKEN = '';
+const MY_USER_ID = ;
 const DB_PATH = path.join(__dirname, 'conversations.db');
 
 // --- LOGGING ---
