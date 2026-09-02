@@ -24,6 +24,4 @@ git clone <your-repo-url>
 cd <your-repo-folder>
 
 # Build and start all services
-A fully containerized, offline-first AI trading assistant that combines a Telegram bot, a 
-React dashboard, an AI trade verifier, and crypto payment flows – all powered by Llama 3.2 
-running locally via Ollama. 
+docker-compose up --build
