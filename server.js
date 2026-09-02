@@ -1,6 +1,22 @@
 const express = require('express');
+const rateLimit = require('express-rate-limit');
 const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+// Apply rate limiting middleware
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // limit each IP to 100 requests per windowMs
+  message: 'Too many requests from this IP, please try again later.'
+});
+
+// Apply the rate limiter to all requests
+app.use(limiter);
+
+app.use(express.json());
 
 const app = express();
 const PORT = process.env.PORT || 3000;
