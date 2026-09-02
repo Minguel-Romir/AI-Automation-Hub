@@ -12,6 +12,11 @@ A fully containerized full-stack boilerplate featuring a React frontend and a No
 - **Live Reload:** Volume mounts sync code changes instantly
 - **Health Check:** Built-in `/api/health` endpoint to verify API status
 
+## 📁 Project Structure
+
+For a complete directory tree and explanation of all files, see:
+[`docs/Project-Structure.md`](docs/Project-Structure.md)
+
 ## 🚀 Quick Start
 
 ### Prerequisites
