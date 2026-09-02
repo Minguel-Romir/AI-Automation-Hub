@@ -1,0 +1,50 @@
+services:
+  # 1. Ollama AI Engine
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    ports:
+      - "11435:11434"          # Host port 11435 -> Container port 11434 (avoids local conflict)
+    volumes:
+      - ollama_data:/root/.ollama
+    environment:
+      - OLLAMA_HOST=0.0.0.0
+    restart: unless-stopped
+
+
+  # 2. Node.js Server (Web UI + API)
+  server:
+    build: .
+    container_name: ai-server
+    ports:
+      - "3000:3000"
+    depends_on:
+      - ollama
+    environment:
+      - OLLAMA_HOST=http://ollama:11434   # Internal container communication (unchanged)
+      - NODE_ENV=production
+    volumes:
+      - ./conversations.db:/app/conversations.db
+      - ./bot.log:/app/bot.log
+    command: node server.js
+    restart: unless-stopped
+
+
+  # 3. Telegram Bot
+  bot:
+    build: .
+    container_name: ai-bot
+    depends_on:
+      - server
+    environment:
+      - SERVER_URL=http://server:3000      # Internal container communication
+      - NODE_ENV=production
+    volumes:
+      - ./conversations.db:/app/conversations.db
+      - ./bot.log:/app/bot.log
+    command: node bot.js
+    restart: unless-stopped
+
+
+volumes:
+  ollama_data:
